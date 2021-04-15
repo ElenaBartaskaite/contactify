@@ -1,0 +1,45 @@
+@import '../variables.scss';
+
+.container {
+    display: flex;
+    box-shadow: 0px 17px 36px -9px rgba(0,0,0,0.59);
+    border-bottom-left-radius: 15px;
+    border-bottom-right-radius: 15px;
+}
+
+.listContainer {
+    border-spacing: 0;
+    border-collapse: separate;
+    min-width: 60%;
+}
+
+.topRow {
+    background-color: $color-green;
+    color: white;
+}
+
+.item{
+    padding: 10px;
+    text-align: left;
+}
+
+.itemRight {
+    @extend .item;
+    text-align: right;
+}
+
+.row {
+    color: $color-dark-gray;
+    background-color: white;
+    td {
+        border-bottom: 1px solid $color-gray;
+    }
+    &:last-child{
+        td {
+            border-bottom: none;
+        }
+        td:first-child{
+            border-bottom-left-radius: 15px;
+        }
+    }
+}

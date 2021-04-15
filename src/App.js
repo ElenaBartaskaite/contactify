@@ -1,55 +1,56 @@
-import './App.css';
+import style from './App.module.scss';
 import { useEffect, useState } from 'react';
+import ContactTable from './ContactTable';
+import { faExclamationTriangle, faSpinner } from '@fortawesome/free-solid-svg-icons';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import spinner from './Images/spinner.png';
+
 
 const url = "https://contactify-api.herokuapp.com/api/contacts";
 
 function App() {
   const [contacts, addContacts] = useState(null);
-  useEffect(async () => {
-    const response = await fetch(url);
-    const data = await response.json();
-    addContacts(data);
+  const [error, toggleError] = useState(false);
+  useEffect(() => {
+    (async () => {
+      try {
+        const response = await fetch(url, {mode: "cors"});
+        const data = await response.json();
+        addContacts(data);
+      } catch (error) {
+        toggleError(true);
+        console.log(error);
+      }
+    })();
   }, [])
   return (
-    <div>
-      {contacts===null? <div>loading</div>: <ContactTable contacts = {contacts}/>}
+    <div className={style.center}>
+      {contacts===null? error === false?
+      <Loading/>: 
+      <Error/>: 
+      <ContactTable contacts = {contacts}/>
+      }
     </div>
   );
 }
 
-function ContactTable(props) {
+function Error() {
   return (
-    <div>
-      <div>
-        <span>Name</span>
-        <span>City</span>
-        <span></span>
-        <span>Email</span>
-        <span>Phone</span>
-        {props.contacts.map(contact=> <ContactListItem contact = {contact}/>)}
+      <div className={style.whiteText}>
+        <FontAwesomeIcon icon = {faExclamationTriangle} />
+        Something went wrong. Refresh the page.
       </div>
-      <Contact/>
-    </div>
   );
 }
 
-function ContactListItem(props) {
+function Loading() {
   return (
-    <div>
-      <span>{props.contact.name} {props.contact.surname[0]}. </span>
-      <span>{props.contact.city}</span>
-      <span>{props.contact.isActive?"Active": "Offline"}</span>
-      <span>{props.contact.email}</span>
-      <span>{props.contact.phone}</span>
-    </div>
-  );
-}
-
-function Contact() {
-  return (
-    <div>
-      Single Contact
-    </div>
+      <div className={style.loading}>
+        <div className={style.spinner}>
+          <FontAwesomeIcon icon = {faSpinner} />
+        </div>
+        Loading...
+      </div>
   );
 }
 
