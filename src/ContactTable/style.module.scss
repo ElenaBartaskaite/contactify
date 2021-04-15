@@ -28,6 +28,11 @@
     text-align: right;
 }
 
+.multipleItemContainer {
+    @extend .item;
+    display: flex;
+}
+
 .row {
     color: $color-dark-gray;
     background-color: white;
@@ -47,4 +52,14 @@
 .rowSelected {
     @extend .row;
     background-color: $color-gray;
+}
+
+.arrow {
+    display: block;
+    margin-left: 15px;
+}
+
+.reverseArrow {
+    @extend .arrow;
+    transform: rotate(180deg);
 }

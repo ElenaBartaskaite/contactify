@@ -6,6 +6,7 @@ import { faBars, faEye, faEyeSlash, faArrowDown } from '@fortawesome/free-solid-
 
 function ContactTable(props) {
     const [selected, setContact] = useState(false);
+    const [sortDirection, setSortDirection] = useState(0);
 
     async function selectContact(contact) {
         const url = "https://contactify-api.herokuapp.com/api/contacts/" + contact.id;
@@ -18,12 +19,20 @@ function ContactTable(props) {
         }
     }
 
+    function sort(contact1, contact2) {
+        if (contact1.name > contact2.name)
+            return sortDirection;
+        if (contact1.name < contact2.name)
+            return -sortDirection;
+        return 0;
+    }
+
     return (
         <div className={style.container}>
             <table className={style.listContainer}>
                 <thead>
                     <tr className={style.topRow}>
-                        <th className={style.item}>Name <FontAwesomeIcon icon={faArrowDown} /></th>
+                        <th className={style.multipleItemContainer} >Name <span className={sortDirection === 1 ? style.reverseArrow : style.arrow} onClick={() => setSortDirection(sortDirection === 0 ? 1 : -sortDirection)}><FontAwesomeIcon icon={faArrowDown} /></span></th>
                         <th className={style.item}>City</th>
                         <th className={style.item}></th>
                         <th className={style.item}>Email</th>
@@ -32,7 +41,9 @@ function ContactTable(props) {
                     </tr>
                 </thead>
                 <tbody>
-                    {props.contacts.map(contact => <ContactListItem contact={contact} selectContact={selectContact} selected={selected.id === contact.id ? true : false} />)}
+                    {props.contacts
+                        .sort((contact1, contact2) => sort(contact1, contact2))
+                        .map(contact => <ContactListItem key={contact.id} contact={contact} selectContact={selectContact} selected={selected.id === contact.id ? true : false} />)}
                 </tbody>
             </table>
             <Contact selected={selected} />
@@ -42,7 +53,7 @@ function ContactTable(props) {
 
 function ContactListItem(props) {
     return (
-        <tr key={props.contact.id} className={props.selected ? style.rowSelected : style.row} onClick={() => props.selectContact(props.contact)}>
+        <tr className={props.selected ? style.rowSelected : style.row} onClick={() => props.selectContact(props.contact)}>
             <td className={style.item}>{props.contact.name} {props.contact.surname[0]}. </td>
             <td className={style.item}>{props.contact.city}</td>
             <td className={style.item}>{props.contact.isActive ? <FontAwesomeIcon icon={faEye} /> : <FontAwesomeIcon icon={faEyeSlash} />}</td>

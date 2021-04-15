@@ -1,5 +1,5 @@
 import style from './App.module.scss';
-import { useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import ContactTable from './ContactTable';
 import { faExclamationTriangle, faSpinner } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -7,26 +7,29 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 const url = "https://contactify-api.herokuapp.com/api/contacts";
 
 function App() {
-  const [contacts, addContacts] = useState(null);
+  const [contacts, updateContacts] = useState(null);
   const [error, toggleError] = useState(false);
   useEffect(() => {
     (async () => {
       try {
         const response = await fetch(url);
         const data = await response.json();
-        addContacts(data);
+        updateContacts(data);
       } catch (error) {
         toggleError(true);
         console.log(error);
       }
     })();
   }, [])
+
   return (
     <div className={style.center}>
       {contacts === null ? error === false ?
         <Loading /> :
         <Error /> :
-        <ContactTable contacts={contacts} />
+        <React.Fragment>
+          <ContactTable contacts={contacts} />
+        </React.Fragment>
       }
     </div>
   );
