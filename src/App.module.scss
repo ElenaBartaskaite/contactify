@@ -2,7 +2,7 @@
 
 body {
     font-family: $font-main;
-    background-color: $color-blue;
+    background-image: linear-gradient(to right, $color-blue-gradient-start , $color-blue-gradient-end);
 }
 
 .center {

@@ -3,8 +3,6 @@ import { useEffect, useState } from 'react';
 import ContactTable from './ContactTable';
 import { faExclamationTriangle, faSpinner } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import spinner from './Images/spinner.png';
-
 
 const url = "https://contactify-api.herokuapp.com/api/contacts";
 
