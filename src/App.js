@@ -12,7 +12,7 @@ function App() {
   useEffect(() => {
     (async () => {
       try {
-        const response = await fetch(url, {mode: "cors"});
+        const response = await fetch(url);
         const data = await response.json();
         addContacts(data);
       } catch (error) {
@@ -23,10 +23,10 @@ function App() {
   }, [])
   return (
     <div className={style.center}>
-      {contacts===null? error === false?
-      <Loading/>: 
-      <Error/>: 
-      <ContactTable contacts = {contacts}/>
+      {contacts === null ? error === false ?
+        <Loading /> :
+        <Error /> :
+        <ContactTable contacts={contacts} />
       }
     </div>
   );
@@ -34,21 +34,21 @@ function App() {
 
 function Error() {
   return (
-      <div className={style.whiteText}>
-        <FontAwesomeIcon icon = {faExclamationTriangle} />
+    <div className={style.whiteText}>
+      <FontAwesomeIcon icon={faExclamationTriangle} />
         Something went wrong. Refresh the page.
-      </div>
+    </div>
   );
 }
 
 function Loading() {
   return (
-      <div className={style.loading}>
-        <div className={style.spinner}>
-          <FontAwesomeIcon icon = {faSpinner} />
-        </div>
-        Loading...
+    <div className={style.loading}>
+      <div className={style.spinner}>
+        <FontAwesomeIcon icon={faSpinner} />
       </div>
+        Loading...
+    </div>
   );
 }
 

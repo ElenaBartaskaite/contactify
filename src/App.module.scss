@@ -1,8 +1,8 @@
-@import './variables.scss';
+@import "./variables.scss";
 
 body {
     font-family: $font-main;
-    background-image: linear-gradient(to right, $color-blue-gradient-start , $color-blue-gradient-end);
+    background-image: linear-gradient(to right, $color-blue-gradient-start, $color-blue-gradient-end);
 }
 
 .center {
@@ -15,7 +15,7 @@ body {
     color: white;
 }
 
-.loading{
+.loading {
     color: white;
     display: flex;
     flex-direction: column;
@@ -24,7 +24,7 @@ body {
         margin: 50px;
         font-size: 150px;
 
-        animation-timing-function: linear; 
+        animation-timing-function: linear;
         animation-name: spin;
         animation-duration: 5000ms;
         animation-iteration-count: infinite;
@@ -33,9 +33,9 @@ body {
 
 @keyframes spin {
     from {
-        transform:rotate(0deg);
+        transform: rotate(0deg);
     }
     to {
-        transform:rotate(360deg);
+        transform: rotate(360deg);
     }
 }
