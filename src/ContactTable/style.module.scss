@@ -10,17 +10,23 @@
 .listContainer {
     border-spacing: 0;
     border-collapse: separate;
-    min-width: 60%;
+    width: 800px;
 }
 
 .topRow {
     background-color: $color-green;
     color: white;
+    cursor: default;
+
+    th:nth-child(1), th:nth-child(2) {
+        width: 150px;
+    }
 }
 
 .item {
     padding: 10px;
     text-align: left;
+    font-weight: 400;
 }
 
 .itemRight {
@@ -36,6 +42,7 @@
 .row {
     color: $color-dark-gray;
     background-color: white;
+    cursor: pointer;
     td {
         border-bottom: 1px solid $color-gray;
     }
@@ -57,6 +64,7 @@
 .arrow {
     display: block;
     margin-left: 15px;
+    cursor: pointer;
 }
 
 .reverseArrow {

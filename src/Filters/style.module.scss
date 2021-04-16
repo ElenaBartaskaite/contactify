@@ -1,0 +1,78 @@
+@import "../variables.scss";
+
+.container {
+    display: flex;
+    color: white;
+}
+
+.filterContainer {
+    width: 740px;
+    display: flex;
+    align-items: center;
+    background-color: $color-blue;
+    padding: 20px 30px;
+    border-top-left-radius: 15px;
+    border-top-right-radius: 15px;
+}
+
+.activityContainer {
+    display: flex;
+    align-items: center;
+    margin-right: 10px;
+
+    div {
+        margin: 0 3px;
+    }
+}
+
+.input {
+    border: none;
+    border-bottom: 1px solid white;
+    background-color: transparent;
+    width: 20%;
+    margin-right: 10px;
+    padding-bottom: 7px;
+    margin-top: 6px;
+    color: white;
+    font-family: $font-main;
+    font-size: 17px;
+
+    &:focus{
+        outline: none;
+    }
+
+    &::placeholder {
+        color: white;
+        font-family: $font-main;
+        font-size: 17px;
+    }
+}
+
+.checkbox {
+    background-color: $color-green;
+    height: 16px;
+    width: 16px;
+    color: white;
+    padding: 3px;
+    user-select: none;
+    cursor: pointer;
+}
+
+.button {
+    background-color: $color-green;
+    border: none;
+    border-radius: 50px;
+    color: white;
+    padding: 10px 30px;
+    text-transform: uppercase;
+    cursor: pointer;
+}
+
+.logo {
+    width: 240px;
+    text-transform: uppercase;
+    font-size: 30px;
+    font-weight: 800;
+    padding: 20px;
+    text-align: right;
+}

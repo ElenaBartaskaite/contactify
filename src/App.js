@@ -1,6 +1,7 @@
 import style from './App.module.scss';
 import React, { useEffect, useState } from 'react';
 import ContactTable from './ContactTable';
+import Filters from './Filters';
 import { faExclamationTriangle, faSpinner } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
@@ -28,6 +29,7 @@ function App() {
         <Loading /> :
         <Error /> :
         <React.Fragment>
+          <Filters contacts={contacts} />
           <ContactTable contacts={contacts} />
         </React.Fragment>
       }

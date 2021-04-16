@@ -16,7 +16,7 @@ function Contact(props) {
                 </div>
                 : <div className={style.contactContainer}>
                     <div className={style.image}>
-                        <img src={userPicture} />
+                        <img src={userPicture} alt="profile pic" />
                     </div>
                     <div className={style.textContainer}>
                         <span className={style.firstColumn}>Name:</span>
