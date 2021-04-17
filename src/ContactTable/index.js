@@ -27,6 +27,19 @@ function ContactTable(props) {
         return 0;
     }
 
+    function filter(contact) {
+        return !Object.keys(props.filters)
+            .map(key => {
+                console.log(key);
+                console.log(contact[key]);
+                console.log(props.filters[key]);
+                console.log(contact);
+                if (contact[key].toString().toLowerCase().includes(props.filters[key].toString().toLowerCase())) return true;
+                return false;
+            })
+            .includes(false);
+    }
+
     return (
         <div className={style.container}>
             <table className={style.listContainer}>
@@ -43,6 +56,7 @@ function ContactTable(props) {
                 <tbody>
                     {props.contacts
                         .sort((contact1, contact2) => sort(contact1, contact2))
+                        .filter(filter)
                         .map(contact => <ContactListItem key={contact.id} contact={contact} selectContact={selectContact} selected={selected.id === contact.id ? true : false} />)}
                 </tbody>
             </table>

@@ -10,6 +10,7 @@ const url = "https://contactify-api.herokuapp.com/api/contacts";
 function App() {
   const [contacts, updateContacts] = useState(null);
   const [error, toggleError] = useState(false);
+  const [filters, updateFilters] = useState({});
   useEffect(() => {
     (async () => {
       try {
@@ -29,8 +30,8 @@ function App() {
         <Loading /> :
         <Error /> :
         <React.Fragment>
-          <Filters contacts={contacts} />
-          <ContactTable contacts={contacts} />
+          <Filters contacts={contacts} updateFilters={updateFilters} />
+          <ContactTable contacts={contacts} filters={filters}/>
         </React.Fragment>
       }
     </div>
