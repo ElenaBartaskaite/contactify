@@ -4,6 +4,7 @@ import Contact from '../Contact';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faBars, faEye, faEyeSlash, faArrowDown } from '@fortawesome/free-solid-svg-icons';
 import ColumnSelector from '../ColumnSelector';
+import {shortSurname} from '../helperFunctions';
 
 function ContactTable(props) {
     const [selected, setContact] = useState(false);
@@ -88,7 +89,7 @@ function ContactTable(props) {
 function ContactListItem(props) {
     return (
         <tr className={props.selected ? style.rowSelected : style.row} onClick={() => props.selectContact(props.contact)}>
-            {props.selectedColumns.Name ? <td className={style.item}>{props.contact.name} {props.contact.surname[0]}. </td> : null}
+            {props.selectedColumns.Name ? <td className={style.item}>{props.contact.name} {shortSurname(props.contact.surname)}</td> : null}
             {props.selectedColumns.City ? <td className={style.item}>{props.contact.city}</td> : null}
             <td className={style.item}><FontAwesomeIcon icon={props.contact.isActive ? faEye : faEyeSlash} /></td>
             {props.selectedColumns.Email ? <td className={style.item}>{props.contact.email}</td> : null}

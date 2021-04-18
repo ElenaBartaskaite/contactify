@@ -1,6 +1,7 @@
 import style from './style.module.scss';
 import React from 'react';
 import userPicture from '../Images/userpic.jpg';
+import {shortSurname} from '../helperFunctions';
 
 function Contact(props) {
     return (
@@ -20,7 +21,7 @@ function Contact(props) {
                     </div>
                     <div className={style.textContainer}>
                         <span className={style.firstColumn}>Name:</span>
-                        <span className={style.secondColumn}>{props.selected.name} {props.selected.surname[0]}.</span>
+                        <span className={style.secondColumn}>{props.selected.name} {shortSurname(props.selected.surname)}</span>
 
                         <span className={style.firstColumn}>City:</span>
                         <span className={style.secondColumn}>{props.selected.city}</span>
