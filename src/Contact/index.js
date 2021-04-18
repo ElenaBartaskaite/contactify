@@ -2,8 +2,6 @@ import style from './style.module.scss';
 import React from 'react';
 import userPicture from '../Images/userpic.jpg';
 import { shortSurname } from '../helperFunctions';
-import { faSpinner } from '@fortawesome/free-solid-svg-icons';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 function Contact(props) {
     return (
