@@ -1,8 +1,9 @@
 import style from './style.module.scss';
 import { useState } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faEye, faCheck } from '@fortawesome/free-solid-svg-icons';
+import { faEye } from '@fortawesome/free-solid-svg-icons';
 import Dropdown from '../Dropdown';
+import Checkbox from '../Checkbox';
 
 
 function Filters(props) {
@@ -41,15 +42,5 @@ function Filters(props) {
         </div>
     );
 }
-
-const Checkbox = props => (
-    <div>
-        {props.checked ?
-            <div className={style.checkbox} onClick={() => props.toggleCheckbox(false)}>
-                <FontAwesomeIcon icon={faCheck} />
-            </div> :
-            <div className={style.checkbox} onClick={() => props.toggleCheckbox(true)} />}
-    </div>
-)
 
 export default Filters;

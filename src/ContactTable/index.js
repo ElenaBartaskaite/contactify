@@ -3,10 +3,22 @@ import React, { useState } from 'react';
 import Contact from '../Contact';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faBars, faEye, faEyeSlash, faArrowDown } from '@fortawesome/free-solid-svg-icons';
+import ColumnSelector from '../ColumnSelector';
 
 function ContactTable(props) {
     const [selected, setContact] = useState(false);
     const [sortDirection, setSortDirection] = useState(0);
+    const [columnSelectorOpen, toggleColumnSelector] = useState(false);
+    const [selectedColumns, selectColumn] = useState({
+        Name: true,
+        City: true,
+        Email: true,
+        Phone: true
+    });
+
+    let filteredList = props.contacts
+        .sort((contact1, contact2) => sort(contact1, contact2))
+        .filter(filter);
 
     async function selectContact(contact) {
         const url = "https://contactify-api.herokuapp.com/api/contacts/" + contact.id;
@@ -30,10 +42,6 @@ function ContactTable(props) {
     function filter(contact) {
         return !Object.keys(props.filters)
             .map(key => {
-                console.log(key);
-                console.log(contact[key]);
-                console.log(props.filters[key]);
-                console.log(contact);
                 if (contact[key].toString().toLowerCase().includes(props.filters[key].toString().toLowerCase())) return true;
                 return false;
             })
@@ -42,25 +50,37 @@ function ContactTable(props) {
 
     return (
         <div className={style.container}>
+            {columnSelectorOpen ? <div className={style.darken} /> : null}
             <table className={style.listContainer}>
+                {columnSelectorOpen ? <ColumnSelector selectedColumns={selectedColumns} selectColumn={selectColumn} /> : null}
                 <thead>
                     <tr className={style.topRow}>
-                        <th className={style.multipleItemContainer} >Name <span className={sortDirection === 1 ? style.reverseArrow : style.arrow} onClick={() => setSortDirection(sortDirection === 0 ? 1 : -sortDirection)}><FontAwesomeIcon icon={faArrowDown} /></span></th>
-                        <th className={style.item}>City</th>
+                        {selectedColumns.Name ? <th className={style.multipleItemContainer}
+                            onClick={() => setSortDirection(sortDirection === 0 ? 1 : -sortDirection)}>
+                            Name
+                            <span className={sortDirection === 1 ? style.reverseArrow : style.arrow}>
+                                <FontAwesomeIcon icon={faArrowDown} />
+                            </span>
+                        </th> : null}
+                        {selectedColumns.City ? <th className={style.itemLong}>City</th> : null}
                         <th className={style.item}></th>
-                        <th className={style.item}>Email</th>
-                        <th className={style.itemRight}>Phone</th>
-                        <th className={style.item}><FontAwesomeIcon icon={faBars} /></th>
+                        {selectedColumns.Email ? <th className={style.item}>Email</th> : null}
+                        {selectedColumns.Phone ? <th className={style.itemRight}>Phone</th> : null}
+                        <th className={columnSelectorOpen ? style.selectorItemOpen : style.selectorItem}
+                            onClick={() => toggleColumnSelector(!columnSelectorOpen)}>
+                            <FontAwesomeIcon icon={faBars} />
+                        </th>
                     </tr>
                 </thead>
                 <tbody>
-                    {props.contacts
-                        .sort((contact1, contact2) => sort(contact1, contact2))
-                        .filter(filter)
-                        .map(contact => <ContactListItem key={contact.id} contact={contact} selectContact={selectContact} selected={selected.id === contact.id ? true : false} />)}
+                    {filteredList.map(contact =>
+                        <ContactListItem key={contact.id} contact={contact}
+                            selectContact={selectContact} selected={selected.id === contact.id}
+                            selectedColumns={selectedColumns} />
+                    )}
                 </tbody>
             </table>
-            <Contact selected={selected} />
+            <Contact selected={filteredList.some(filteredItem => filteredItem.id === selected.id) ? selected : false} />
         </div>
     );
 }
@@ -68,11 +88,11 @@ function ContactTable(props) {
 function ContactListItem(props) {
     return (
         <tr className={props.selected ? style.rowSelected : style.row} onClick={() => props.selectContact(props.contact)}>
-            <td className={style.item}>{props.contact.name} {props.contact.surname[0]}. </td>
-            <td className={style.item}>{props.contact.city}</td>
-            <td className={style.item}>{props.contact.isActive ? <FontAwesomeIcon icon={faEye} /> : <FontAwesomeIcon icon={faEyeSlash} />}</td>
-            <td className={style.item}>{props.contact.email}</td>
-            <td className={style.itemRight}>{props.contact.phone}</td>
+            {props.selectedColumns.Name ? <td className={style.item}>{props.contact.name} {props.contact.surname[0]}. </td> : null}
+            {props.selectedColumns.City ? <td className={style.item}>{props.contact.city}</td> : null}
+            <td className={style.item}><FontAwesomeIcon icon={props.contact.isActive ? faEye : faEyeSlash} /></td>
+            {props.selectedColumns.Email ? <td className={style.item}>{props.contact.email}</td> : null}
+            {props.selectedColumns.Phone ? <td className={style.itemRight}>{props.contact.phone}</td> : null}
             <td className={style.item}></td>
         </tr>
     );

@@ -1,0 +1,24 @@
+@import "../variables.scss";
+
+.container {
+    position: absolute;
+    top: $top-row-height;
+    right: 0;
+    background-color: white;
+    z-index: 2;
+    color: $color-dark-gray;
+}
+
+.option {
+    display: flex;
+    padding: 10px 50px 10px 15px;
+    border-bottom: 1px solid $color-gray;
+
+    span {
+        margin-left: 10px;
+    }
+
+    &:last-child {
+        border-bottom: none;
+    }
+}

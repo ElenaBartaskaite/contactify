@@ -6,22 +6,21 @@
     border-bottom-left-radius: 15px;
     border-bottom-right-radius: 15px;
     background-color: white;
+    position: relative;
 }
 
 .listContainer {
     border-spacing: 0;
     border-collapse: separate;
-    width: 800px;
+    width: $table-width;
+    position: relative;
 }
 
 .topRow {
     background-color: $color-green;
     color: white;
     cursor: default;
-
-    th:nth-child(1), th:nth-child(2) {
-        width: 150px;
-    }
+    height: $top-row-height;
 }
 
 .item {
@@ -30,27 +29,53 @@
     font-weight: 400;
 }
 
+.itemLong {
+    @extend .item;
+    width: 150px;
+}
+
 .itemRight {
     @extend .item;
     text-align: right;
 }
 
 .multipleItemContainer {
-    @extend .item;
+    @extend .itemLong;
     display: flex;
+}
+
+.selectorItem {
+    @extend .item;
+    max-width: 16px;
+    width: 16px;
+}
+
+.selectorItemOpen {
+    @extend .selectorItem;
+    background-color: white;
+    color: $color-green;
+}
+
+.hidden {
+    @extend .item;
+    visibility: hidden;
 }
 
 .row {
     color: $color-dark-gray;
     background-color: white;
     cursor: pointer;
+    height: $top-row-height;
+
     td {
         border-bottom: 1px solid $color-gray;
     }
+
     &:last-child {
         td {
             border-bottom: none;
         }
+
         td:first-child {
             border-bottom-left-radius: 15px;
         }
@@ -71,4 +96,16 @@
 .reverseArrow {
     @extend .arrow;
     transform: rotate(180deg);
+}
+
+.darken {
+    position: absolute;
+    background-color: black;
+    opacity: 0.3;
+    top: $top-row-height;
+    bottom: 0;
+    left: 0;
+    width: $table-width;
+    border-bottom-left-radius: 15px;
+    z-index: 1;
 }

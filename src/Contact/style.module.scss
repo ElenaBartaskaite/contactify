@@ -5,8 +5,12 @@
     border-bottom-right-radius: 15px;
 }
 
+.contactContainer {
+    margin-bottom: 20px;
+}
+
 .header {
-    height: 41.6px;
+    height: $top-row-height;
     background-color: $color-green;
 }
 

@@ -13,6 +13,7 @@ const colourStyles = {
         ...provided,
         color: state.isSelected ? 'white' : '#4f4d43',
         backgroundColor: state.isSelected ? '#4eb7be' : 'white',
+        cursor: "pointer",
         "&:active": {
             backgroundColor: '#4eb7be',
             color: "white"
@@ -21,6 +22,7 @@ const colourStyles = {
     control: (provided) => ({
         ...provided,
         backgroundColor: 'transparent',
+        cursor: "pointer",
         border: 'none',
         borderBottom: '1px solid white',
         borderRadius: '0',
