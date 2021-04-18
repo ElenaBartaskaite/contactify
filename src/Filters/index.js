@@ -26,7 +26,7 @@ function Filters(props) {
         <div className={style.container}>
             <div className={style.filterContainer}>
                 <input type="text" placeholder="Name" value={name} onChange={event => selectName(event.target.value)} className={style.input}></input>
-                <Dropdown selectedCity={selectedCity} selectCity={selectCity} options={options} />
+                <Dropdown selectedCity={selectedCity} selectCity={selectCity} options={options} placeholder={"City"}/>
                 <div className={style.activityContainer}>
                     <Checkbox
                         checked={showActive}

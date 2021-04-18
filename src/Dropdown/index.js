@@ -64,20 +64,22 @@ const colourStyles = {
     })
 };
 
-const Dropdown = props => (
-    <div className={style.container}>
-        <Select
-            defaultValue={props.selectedCity}
-            onChange={selected => props.selectCity(selected.value)}
-            options={props.options}
-            placeholder="City"
-            styles={colourStyles}
-            components={{ DropdownIndicator }}
-        />
-    </div>
-);
+function Dropdown(props) {
+    return (
+        <div className={style.container}>
+            <Select
+                defaultValue={props.selectedCity}
+                onChange={selected => props.selectCity(selected.value)}
+                options={props.options}
+                placeholder={props.placeholder}
+                styles={colourStyles}
+                components={{ DropdownIndicator }}
+            />
+        </div>
+    )
+};
 
-const DropdownIndicator = (props) => {
+function DropdownIndicator (props) {
     return (
         <components.DropdownIndicator {...props}>
             <FontAwesomeIcon icon={faCaretDown} />
