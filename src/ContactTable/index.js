@@ -23,13 +23,17 @@ function ContactTable(props) {
 
     async function selectContact(contact) {
         const url = "https://contactify-api.herokuapp.com/api/contacts/" + contact.id;
-        setContact(false);
-        try {
-            const response = await fetch(url, { mode: "cors" });
-            const data = await response.json();
-            setContact(data);
-        } catch (error) {
-            console.log(error);
+        
+        if (contact.id !== selectedContact.id) {
+            setContact(false);
+            try {
+                const response = await fetch(url, { mode: "cors" });
+                const data = await response.json();
+                setContact(data);
+            } catch (error) {
+                console.log(error);
+            }
+
         }
     }
 
@@ -54,7 +58,7 @@ function ContactTable(props) {
     return (
         <div className={style.container}>
             {columnSelectorOpen ?
-                <ColumnSelector selectedColumns={selectedColumns} selectColumn={selectColumn} toggleColumnSelector={toggleColumnSelector}/>
+                <ColumnSelector selectedColumns={selectedColumns} selectColumn={selectColumn} toggleColumnSelector={toggleColumnSelector} />
                 : null}
             <table className={style.listContainer}>
                 <thead>
