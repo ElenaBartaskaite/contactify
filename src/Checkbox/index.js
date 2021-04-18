@@ -5,11 +5,14 @@ import { faCheck } from '@fortawesome/free-solid-svg-icons';
 function Checkbox(props) {
     return (
         <div>
-            {props.checked ?
-                <div className={style.checkbox} onClick={() => props.toggleCheckbox(false)}>
-                    <div className={style.check}><FontAwesomeIcon icon={faCheck} /></div>
-                </div> :
-                <div className={style.checkboxUnchecked} onClick={() => props.toggleCheckbox(true)} />}
+            <div className={props.checked ? style.checkbox : style.checkboxUnchecked}
+                onClick={() => props.toggleCheckbox(!props.checked)}>
+                {props.checked ?
+                    <div className={style.check}>
+                        <FontAwesomeIcon icon={faCheck} />
+                    </div>
+                    : null}
+            </div>
         </div>
 
     )

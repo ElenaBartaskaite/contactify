@@ -7,8 +7,9 @@ import Checkbox from '../Checkbox';
 
 
 function Filters(props) {
-    const options = props.contacts.map(contact => ({ value: contact.city, label: contact.city }));
+    let options = props.contacts.map(contact => ({ value: contact.city, label: contact.city }));
     options.unshift({ value: "", label: "None" });
+    options = [...new Set(options)];
     const [selectedCity, selectCity] = useState("");
     const [name, selectName] = useState("");
     const [showActive, selectShowActive] = useState(false);
@@ -25,8 +26,11 @@ function Filters(props) {
     return (
         <div className={style.container}>
             <div className={style.filterContainer}>
-                <input type="text" placeholder="Name" value={name} onChange={event => selectName(event.target.value)} className={style.input}></input>
-                <Dropdown selectedCity={selectedCity} selectCity={selectCity} options={options} placeholder={"City"}/>
+                <input type="text" placeholder="Name" value={name}
+                    onChange={event => selectName(event.target.value)}
+                    className={style.input}></input>
+                <Dropdown selectedCity={selectedCity} selectCity={selectCity}
+                    options={options} placeholder={"City"} />
                 <div className={style.activityContainer}>
                     <Checkbox
                         checked={showActive}

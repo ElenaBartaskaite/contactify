@@ -1,7 +1,9 @@
 import style from './style.module.scss';
 import React from 'react';
 import userPicture from '../Images/userpic.jpg';
-import {shortSurname} from '../helperFunctions';
+import { shortSurname } from '../helperFunctions';
+import { faSpinner } from '@fortawesome/free-solid-svg-icons';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 function Contact(props) {
     return (
@@ -9,13 +11,14 @@ function Contact(props) {
             <div className={style.header}></div>
             {props.selected === false ?
                 <div className={style.contactContainer}>
-                    <div className={style.emptyImage}></div>
-                    <div className={style.emptyText}></div>
-                    <div className={style.emptyText}></div>
-                    <div className={style.emptyText}></div>
-                    <div className={style.emptyText}></div>
+                    <div className={style.emptyImage}/>
+                    <div className={style.emptyText}/>
+                    <div className={style.emptyText}/>
+                    <div className={style.emptyText}/>
+                    <div className={style.emptyText}/>
                 </div>
-                : <div className={style.contactContainer}>
+                :
+                <div className={style.contactContainer}>
                     <div className={style.image}>
                         <img src={userPicture} alt="profile pic" />
                     </div>

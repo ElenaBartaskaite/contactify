@@ -37,7 +37,7 @@
     font-family: $font-main;
     font-size: 17px;
 
-    &:focus{
+    &:focus {
         outline: none;
     }
 
@@ -58,7 +58,11 @@
     cursor: pointer;
 
     &:focus {
-        outline:0;
+        outline: 0;
+    }
+
+    &:active {
+        background-color: #3d9399;
     }
 }
 

@@ -4,10 +4,10 @@ import Contact from '../Contact';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faBars, faEye, faEyeSlash, faArrowDown } from '@fortawesome/free-solid-svg-icons';
 import ColumnSelector from '../ColumnSelector';
-import {shortSurname} from '../helperFunctions';
+import { shortSurname } from '../helperFunctions';
 
 function ContactTable(props) {
-    const [selected, setContact] = useState(false);
+    const [selectedContact, setContact] = useState(false);
     const [sortDirection, setSortDirection] = useState(0);
     const [columnSelectorOpen, toggleColumnSelector] = useState(false);
     const [selectedColumns, selectColumn] = useState({
@@ -23,6 +23,7 @@ function ContactTable(props) {
 
     async function selectContact(contact) {
         const url = "https://contactify-api.herokuapp.com/api/contacts/" + contact.id;
+        setContact(false);
         try {
             const response = await fetch(url, { mode: "cors" });
             const data = await response.json();
@@ -41,19 +42,21 @@ function ContactTable(props) {
     }
 
     function filter(contact) {
-        return !Object.keys(props.filters)
-            .map(key => {
-                if (contact[key].toString().toLowerCase().includes(props.filters[key].toString().toLowerCase())) return true;
-                return false;
-            })
-            .includes(false);
+        if (props.filters.name)
+            if (!contact.name.includes(props.filters.name.toLowerCase())) return false;
+        if (props.filters.city)
+            if (!(contact.city === props.filters.city)) return false;
+        if (props.filters.isActive)
+            return contact.isActive;
+        return true;
     }
 
     return (
         <div className={style.container}>
-            {columnSelectorOpen ? <div className={style.darken} /> : null}
+            {columnSelectorOpen ?
+                <ColumnSelector selectedColumns={selectedColumns} selectColumn={selectColumn} toggleColumnSelector={toggleColumnSelector}/>
+                : null}
             <table className={style.listContainer}>
-                {columnSelectorOpen ? <ColumnSelector selectedColumns={selectedColumns} selectColumn={selectColumn} /> : null}
                 <thead>
                     <tr className={style.topRow}>
                         {selectedColumns.Name ? <th className={style.multipleItemContainer}
@@ -76,24 +79,39 @@ function ContactTable(props) {
                 <tbody>
                     {filteredList.map(contact =>
                         <ContactListItem key={contact.id} contact={contact}
-                            selectContact={selectContact} selected={selected.id === contact.id}
+                            selectContact={selectContact} selected={selectedContact.id === contact.id}
                             selectedColumns={selectedColumns} />
                     )}
                 </tbody>
             </table>
-            <Contact selected={filteredList.some(filteredItem => filteredItem.id === selected.id) ? selected : false} />
+            <Contact selected={filteredList.some(filteredItem => filteredItem.id === selectedContact.id) ? selectedContact : false} />
         </div>
     );
 }
 
 function ContactListItem(props) {
     return (
-        <tr className={props.selected ? style.rowSelected : style.row} onClick={() => props.selectContact(props.contact)}>
-            {props.selectedColumns.Name ? <td className={style.item}>{props.contact.name} {shortSurname(props.contact.surname)}</td> : null}
-            {props.selectedColumns.City ? <td className={style.item}>{props.contact.city}</td> : null}
-            <td className={style.item}><FontAwesomeIcon icon={props.contact.isActive ? faEye : faEyeSlash} /></td>
-            {props.selectedColumns.Email ? <td className={style.item}>{props.contact.email}</td> : null}
-            {props.selectedColumns.Phone ? <td className={style.itemRight}>{props.contact.phone}</td> : null}
+        <tr className={props.selected ? style.rowSelected : style.row}
+            onClick={() => props.selectContact(props.contact)}>
+            {props.selectedColumns.Name ?
+                <td className={style.item}>
+                    {props.contact.name} {shortSurname(props.contact.surname)}
+                </td> : null}
+            {props.selectedColumns.City ?
+                <td className={style.item}>
+                    {props.contact.city}
+                </td> : null}
+            <td className={style.item}>
+                <FontAwesomeIcon icon={props.contact.isActive ? faEye : faEyeSlash} />
+            </td>
+            {props.selectedColumns.Email ?
+                <td className={style.item}>
+                    {props.contact.email}
+                </td> : null}
+            {props.selectedColumns.Phone ?
+                <td className={style.itemRight}>
+                    {props.contact.phone}
+                </td> : null}
             <td className={style.item}></td>
         </tr>
     );

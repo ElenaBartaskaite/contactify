@@ -3,6 +3,8 @@ import style from './style.module.scss';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCaretDown } from "@fortawesome/free-solid-svg-icons";
 
+// React Select documentation: https://react-select.com/home
+
 const colourStyles = {
     indicatorSeparator: styles => ({ ...styles, display: "none" }),
     valueContainer: (provided) => ({

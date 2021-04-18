@@ -12,6 +12,7 @@ function App() {
   const [error, toggleError] = useState(false);
   const [filters, updateFilters] = useState({});
   useEffect(() => {
+    document.title = "Contactify";
     (async () => {
       try {
         const response = await fetch(url);
@@ -22,10 +23,6 @@ function App() {
         console.log(error);
       }
     })();
-  }, [])
-
-  useEffect(() => {
-    document.title = "Contactify"
   }, []);
 
   return (
@@ -46,7 +43,7 @@ function Error() {
   return (
     <div className={style.whiteText}>
       <FontAwesomeIcon icon={faExclamationTriangle} />
-        Something went wrong. Refresh the page.
+      <span>Something went wrong. Refresh the page.</span>
     </div>
   );
 }
