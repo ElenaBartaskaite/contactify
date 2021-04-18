@@ -24,6 +24,10 @@ function App() {
     })();
   }, [])
 
+  useEffect(() => {
+    document.title = "Contactify"
+  }, []);
+
   return (
     <div className={style.center}>
       {contacts === null ? error === false ?
@@ -31,7 +35,7 @@ function App() {
         <Error /> :
         <React.Fragment>
           <Filters contacts={contacts} updateFilters={updateFilters} />
-          <ContactTable contacts={contacts} filters={filters}/>
+          <ContactTable contacts={contacts} filters={filters} />
         </React.Fragment>
       }
     </div>
